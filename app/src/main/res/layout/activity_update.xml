@@ -1,9 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="xyz.secondson.nammobile.UpdateActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".UpdateActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:measureWithLargestChild="false"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/layout_toolbar" />
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/background_gradient">
+
+        <LinearLayout
+            android:id="@+id/isiBeranda"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="25dp"
+            android:paddingBottom="25dp"
+            android:paddingRight="40dp"
+            android:paddingLeft="40dp">
+
+            <!-- Pilih Dealer -->
+            <LinearLayout
+                android:id="@+id/isiDealer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:layout_marginBottom="17dp">
+
+                <Spinner
+                    android:id="@+id/pilihDealer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/lbl_pilihDealer"
+                    android:entries="@array/list_dealer"/>
+
+            </LinearLayout>
+
+            <!-- Dealer -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:layout_marginBottom="9dp">
+
+                <TextView
+                    android:id="@+id/lbl_Dealer"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:text="Dealer"
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:id="@+id/dealer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="--"
+                    android:textStyle="bold"
+                    android:textSize="16dp"/>
+            </LinearLayout>
+
+            <!-- Surat Jalan -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:layout_marginBottom="9dp">
+
+                <TextView
+                    android:id="@+id/lbl_totSuratJalan"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:text="Total Surat Jalan"
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:id="@+id/totSuratJalan"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="--"
+                    android:freezesText="true"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="20dp"/>
+            </LinearLayout>
+
+            <!-- Total Koil/Case -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:layout_marginBottom="9dp">
+
+                <TextView
+                    android:id="@+id/lbl_totKoil"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:text="Total Koil/Case"
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:id="@+id/totKoil"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="--"
+                    android:freezesText="true"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"
+                    android:textSize="20dp"/>
+            </LinearLayout>
+
+            <!-- Button Update Data -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="9dp">
+
+                <Button
+                    android:id="@+id/btnScan"
+                    android:layout_marginTop="30dp"
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content"
+                    android:background="#C2185B"
+                    android:textColor="@android:color/white"
+                    android:text="Scan QR"/>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/btnSelesai"
+                    android:layout_marginTop="30dp"
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content"
+                    android:background="#C2185B"
+                    android:textColor="@android:color/white"
+                    android:text="Selesai"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/layout_header"
+        app:menu="@menu/item_navigasi" />
+</android.support.v4.widget.DrawerLayout>

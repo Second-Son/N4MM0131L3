@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="193dp"
     android:gravity="bottom"
-    android:background="@drawable/login_background"
+    android:background="@drawable/background_gradient"
     android:orientation="vertical"
     android:weightSum="1">
 
