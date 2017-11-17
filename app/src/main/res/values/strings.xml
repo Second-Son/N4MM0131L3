@@ -16,10 +16,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string-array name="list_dealer">
-        <item>PIih Dealer</item>
-        <item>BIT Pulogadung</item>
-        <item>BIT Fatmawati</item>
+        <item>MIT Pulogadung</item>
+        <item>Fatmawati</item>
         <item>Kuningan</item>
-        <item>Blok M</item>
+        <item>MIT Tangerang</item>
     </string-array>
 </resources>

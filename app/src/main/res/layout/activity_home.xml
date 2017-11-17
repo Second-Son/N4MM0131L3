@@ -84,7 +84,7 @@
                     android:textSize="16dp"/>
 
                 <TextView
-                    android:id="@+id/totSuratJalan"
+                    android:id="@+id/dn_total"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -134,7 +134,7 @@
                     android:textSize="16dp"/>
 
                 <TextView
-                    android:id="@+id/totKoil"
+                    android:id="@+id/case_total"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"

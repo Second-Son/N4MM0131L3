@@ -1,5 +1,7 @@
 package xyz.secondson.nammobile;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
@@ -23,6 +25,15 @@ import com.google.zxing.integration.android.IntentResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import okhttp3.ResponseBody;
+import xyz.secondson.nammobile.api.BaseApiService;
+import xyz.secondson.nammobile.api.UtilsApi;
+
 public class UpdateActivity extends AppCompatActivity implements View.OnClickListener{
 
     // Untuk Spinner
@@ -39,11 +50,45 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     //qr code scanner object
     private IntentIntegrator qrScan;
 
+    //Untuk Post Data ke API
+    @BindView(R.id.dn_total)
+    TextView dn_total;
+    @BindView(R.id.case_total)
+    TextView case_total;
+    @BindView(R.id.dealer)
+    TextView dealer;
+    String supplierCode;
+    @BindView(R.id.btnSelesai)
+    Button btnSelesai;
+    ProgressDialog loading;
+
+    BaseApiService mApiService;
+    Context mContext;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
+
+
+        //================== Mulai Untuk Ngirim Dengan API ========================= //
+        ButterKnife.bind(this);
+        mContext = this;
+        mApiService = UtilsApi.getAPIService();
+
+        btnSelesai.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                requestSimpan();
+            }
+        });
+        String code = "1000";
+        supplierCode = code;
+
+        //================== Mulai Untuk Ngirim Dengan API ========================= //
+
+
 
 
 //================ Mulai Untuk Toolbar dan Draw Navigation =========================================//
@@ -119,8 +164,8 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
 
         //================ Ini Untuk Scan ================================//
         mbuttonScan = findViewById(R.id.btnScan);
-        mTextSuratJalan =  findViewById(R.id.totSuratJalan);
-        mTextKoil =  findViewById(R.id.totKoil);
+        mTextSuratJalan =  findViewById(R.id.dn_total);
+        mTextKoil =  findViewById(R.id.case_total);
         //intializing scan object
         qrScan = new IntentIntegrator(this);
         //attaching onclick listener
@@ -217,6 +262,38 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+
+    //======== Mulai Untuk Method requestSimpan yang akan simpan ke API ======== //
+
+    private void requestSimpan(){
+        loading = ProgressDialog.show(mContext, null, "Harap Tunggu", true, false);
+
+        mApiService.simpan(dn_total.getText().toString(), case_total.getText().toString(), dealer.getText().toString(),supplierCode.toString()).enqueue(new Callback<ResponseBody>(){
+
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    loading.dismiss();
+                    Toast.makeText(mContext,"Data Berhasil Ditambahkan", Toast.LENGTH_LONG).show();
+                }else {
+                    loading.dismiss();
+                    Toast.makeText(mContext, "Gagal Menyimpan Data", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                loading.dismiss();
+                Toast.makeText(mContext, "Koneksi Internet Bermasalah", Toast.LENGTH_SHORT).show();
+            }
+
+
+        });
+    }
+
+    //======== Akhir Untuk Method requestSimpan yang akan simpan ke API ======== //
+
 
 
 } //ini tutup untuk Class HomeActivity
